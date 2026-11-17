@@ -1,0 +1,25 @@
+// foobox macOS：所有面板由 Panels UI 平铺；播放控制复用原版 base.js。
+$windowstyle(showtitlebar)
+$drawrect(0,0,%_width%,%_height%,brushcolor-37-37-37 pencolor-null)
+$puts(footer,$min(112,$max(1,$sub(%_height%,1))))
+$puts(ch,$max(1,$sub(%_height%,$get(footer))))
+$puts(left,$ifgreater(%_width%,499,$min(230,$max(160,$div(%_width%,6))),0))
+$puts(right,$min($sub(%_width%,1),320,$max(240,$div(%_width%,4))))
+$if($strcmp($getpvar(foobox.view),browser),
+    $panel(Browser,JS Panel,0,0,$sub(%_width%,$get(right)),$get(ch))
+    $panel(BrowserList,JS Panel,$sub(%_width%,$get(right)),0,$get(right),$get(ch)),
+    $if($strcmp($getpvar(foobox.view),lyrics),
+        $panel(Info,JS Panel,0,0,$get(right),$get(ch))
+        $panel(Lyrics,Lyric Show,$get(right),0,$sub(%_width%,$get(right)),$get(ch)),
+        $if($strcmp($getpvar(foobox.view),spectrum),
+            $panel(Spectrum,Spectrum,0,0,%_width%,$get(ch)),
+            $ifgreater($get(left),0,$panel(Manager,JS Panel,0,0,$get(left),$get(ch)),)
+            $ifgreater(%_width%,899,
+                $panel(Playlist,JS Panel,$add($get(left),1),0,$sub(%_width%,$get(left),$get(right),2),$get(ch))
+                $panel(Info,JS Panel,$sub(%_width%,$get(right)),0,$get(right),$get(ch)),
+                $panel(Playlist,JS Panel,$add($get(left),1),0,$sub(%_width%,$get(left),1),$get(ch))
+            )
+        )
+    )
+)
+$panel(Controls,JS Panel,0,$get(ch),%_width%,$get(footer))

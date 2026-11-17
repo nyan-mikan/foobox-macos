@@ -1,0 +1,8 @@
+%title%	%artist%	%album artist%	%album%	%tracknumber%	%date%	%genre%	%length%	%length_seconds%	%codec%	%bitrate%	%samplerate%	%channels%	%path%	%directoryname%	%rating%
+青空の記憶	测试艺术家	测试艺术家	海辺の音楽	1	2026	Pop	3:55	235	FLAC	950	44100	stereo	/Music/Test/track1.flac	Test	4
+水色の旋律	测试艺术家	测试艺术家	海辺の音楽	2	2026	Pop	3:55	235	FLAC	950	44100	stereo	/Music/Test/track2.flac	Test	4
+夜行列車	测试艺术家	测试艺术家	海辺の音楽	3	2026	Pop	3:55	235	FLAC	950	44100	stereo	/Music/Test/track3.flac	Test	4
+未来への道	测试艺术家	测试艺术家	海辺の音楽	4	2026	Pop	3:55	235	FLAC	950	44100	stereo	/Music/Test/track4.flac	Test	4
+中文标题与很长的专辑名称	测试艺术家	测试艺术家	Acoustic Sessions	5	2026	Pop	3:55	235	FLAC	950	44100	stereo	/Music/Test/track5.flac	Test	4
+Live Recording	测试艺术家	测试艺术家	Acoustic Sessions	6	2026	Pop	3:55	235	FLAC	950	44100	stereo	/Music/Test/track6.flac	Test	4
+Missing album metadata	测试艺术家	测试艺术家	Acoustic Sessions	7	2026	Pop	3:55	235	FLAC	950	44100	stereo	/Music/Test/track7.flac	Test	4
