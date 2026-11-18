@@ -1,8 +1,8 @@
 # Panels UI macOS window patch
 
-`panels-ui-macos-dock-reopen.patch` applies to [Panels UI 1.27.0](https://github.com/santiagorod92/foo_ui_panels/tree/5ea065692af068c10f387c9331986271fab2a3ae). Closing the player window hides the app so macOS can restore it when the app is activated. Quitting still performs the component's normal shutdown.
+`panels-ui-macos-dock-reopen.patch` applies to [Panels UI 1.27.0](https://github.com/santiagorod92/foo_ui_panels/tree/5ea065692af068c10f387c9331986271fab2a3ae). Closing the player window hides foobar2000 and its other open windows. macOS can restore them when you reopen the running app. Command-Q still quits the player.
 
-Build on macOS with Xcode Command Line Tools and CMake 3.21 or newer. From the foobox-macos checkout, run:
+The build uses Xcode Command Line Tools, CMake 3.21 or newer, and the GitHub CLI. Run these commands from the foobox-macos checkout.
 
 ```sh
 mkdir -p build/window-reopen/panels build/window-reopen/sdk

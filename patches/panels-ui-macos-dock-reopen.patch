@@ -1,6 +1,6 @@
 --- a/src/platform/mac/mac_main.mm
 +++ b/src/platform/mac/mac_main.mm
-@@ -10,6 +10,17 @@
+@@ -10,6 +10,25 @@
  #include "../../core/log.h"
  #include <algorithm>
  #include <vector>
@@ -8,22 +8,48 @@
 +// Keep the main window in AppKit's hide/unhide cycle so Dock activation
 +// restores it. Programmatic close still tears it down on quit.
 +@interface FooUIPanelsMainWindow : NSWindow
++- (void)closeForShutdown;
 +@end
 +
 +@implementation FooUIPanelsMainWindow
 +- (void)performClose:(id)sender {
-+    [NSApp hide:sender];
++    [self close];
++}
++- (void)close {
++    pui::log::info("ui", "hiding main window on close");
++    [NSApp hide:nil];
++}
++- (void)closeForShutdown {
++    [super close];
 +}
 +@end
  
  @interface FooUIPanelsTrayTarget : NSObject
  @property (nonatomic, assign) pui::SkinEngine* engine;
-@@ -308,7 +319,7 @@
+@@ -308,7 +327,7 @@
  
      fb2k::hwnd_t init(HookProc_t) override {
          m_root = std::make_unique<PanelsRoot>( true);
 -        NSWindow* win = [[NSWindow alloc]
-+        NSWindow* win = [[FooUIPanelsMainWindow alloc]
++        FooUIPanelsMainWindow* win = [[FooUIPanelsMainWindow alloc]
              initWithContentRect:NSMakeRect(0, 0, 950, 750)
                        styleMask:(NSWindowStyleMaskTitled | NSWindowStyleMaskClosable |
                                   NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable)
+@@ -332,7 +351,7 @@
+ 
+     void shutdown() override {
+         teardown();
+-        [m_window close];
++        [m_window closeForShutdown];
+         m_window = nil;
+         pui::images_shutdown();
+     }
+@@ -355,7 +374,7 @@
+     void show_now_playing() override {}
+ 
+ private:
+-    NSWindow* m_window = nil;
++    FooUIPanelsMainWindow* m_window = nil;
+     std::unique_ptr<PanelsRoot> m_root;
+ };
+ static service_factory_single_v2_t<panels_ui_mac> g_panels_ui_mac_factory;
