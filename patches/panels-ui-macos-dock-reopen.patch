@@ -1,0 +1,29 @@
+--- a/src/platform/mac/mac_main.mm
++++ b/src/platform/mac/mac_main.mm
+@@ -10,6 +10,17 @@
+ #include "../../core/log.h"
+ #include <algorithm>
+ #include <vector>
++
++// Keep the main window in AppKit's hide/unhide cycle so Dock activation
++// restores it. Programmatic close still tears it down on quit.
++@interface FooUIPanelsMainWindow : NSWindow
++@end
++
++@implementation FooUIPanelsMainWindow
++- (void)performClose:(id)sender {
++    [NSApp hide:sender];
++}
++@end
+ 
+ @interface FooUIPanelsTrayTarget : NSObject
+ @property (nonatomic, assign) pui::SkinEngine* engine;
+@@ -308,7 +319,7 @@
+ 
+     fb2k::hwnd_t init(HookProc_t) override {
+         m_root = std::make_unique<PanelsRoot>( true);
+-        NSWindow* win = [[NSWindow alloc]
++        NSWindow* win = [[FooUIPanelsMainWindow alloc]
+             initWithContentRect:NSMakeRect(0, 0, 950, 750)
+                       styleMask:(NSWindowStyleMaskTitled | NSWindowStyleMaskClosable |
+                                  NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable)
