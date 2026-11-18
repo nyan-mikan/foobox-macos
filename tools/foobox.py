@@ -157,6 +157,8 @@ def transform(rel: str, text: str) -> str:
             text = replace_once(text, f'_child01.AppendMenuItem(MF_STRING, {menu_id}, "{label}");',
                 f'_child01.AppendMenuItem(MF_GRAYED, {menu_id}, "{label}");', rel)
     elif rel == "js_panels/jsplaylist/WSHsettings.js":
+        for title in ("界面相关", "封面相关", "其他设置"):
+            text = replace_once(text, f'gr.GdiDrawText("** {title} **",', f'gr.GdiDrawText("{title}",', rel)
         start = text.index("\t\tcase 17:")
         end = text.index("\n\t\t}\n\t\tbreak;", start)
         text = text[:start] + "\t\tcase 17:\n\t\t\tcfg_map.winFrame = 0; // 保持原生 Mac 窗口框架\n\t\t\tp.settings.pages[parentId].elements[id].repaint();\n\t\t\tbreak;" + text[end:]
